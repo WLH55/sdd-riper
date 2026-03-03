@@ -62,7 +62,75 @@
 - 📣 已向 **近 10 个团队/部门** 完成布道与落地推广
 - 📊 系列方法论文章 ATA **累计阅读 13,000+、点赞 540+**，在线文档阅读近 **5,000**
 - 🌐 公众号文章**累计 1,220+ 点赞、6,900+ 转发、850+ 收藏**，已获得**外部行业关注与交流邀约**
-- 📦 产品化为可复用的 Skill 与模板，便于团队沉淀与复用
+- 📦 开源为可复用的 Skill，**任何团队都可零成本使用**
+
+---
+
+## 🚀 快速开始
+
+### 方式一：使用 Skill（推荐 - 开箱即用）
+
+**Skill 是什么？** 将 SDD-RIPER 协议封装为可执行命令的配置文件，让 AI 自动遵循 RIPER 流程。
+
+#### 安装步骤
+
+1. **选择你的 AI 平台**
+   - **Claude Desktop / Claude.ai**：复制 [`skills/sdd-riper-one/SKILL.md`](./skills/sdd-riper-one/SKILL.md) 到 Custom Instructions
+   - **Cursor**：将 `SKILL.md` 复制为项目根目录的 `.cursorrules` 文件
+   - **其他 AI Agent**：查看 [完整安装指南](./skills/sdd-riper-one/README.md)
+
+2. **验证安装**
+
+   ```text
+   在 AI 对话中输入：create_codemap
+   如果 AI 识别并执行，说明安装成功 ✅
+   ```
+
+3. **开始第一个任务**
+
+   ```text
+   create_codemap: mode=project, scope=my-project
+   build_context_bundle: ./docs/requirements/
+   sdd_bootstrap: task=用户登录功能, goal=实现完整的登录流程
+   ```
+
+#### 核心命令速查
+
+| 命令 | 用途 | 示例 |
+|------|------|------|
+| `create_codemap` | 生成代码地图（功能级/项目级） | `create_codemap: mode=feature, scope=登录模块` |
+| `build_context_bundle` | 整理需求上下文 | `build_context_bundle: ./docs/requirements/` |
+| `sdd_bootstrap` | 启动 SDD 任务 | `sdd_bootstrap: task=用户认证, goal=...` |
+| `FAST` | 快速修改（小改动） | `FAST: 修改按钮颜色为蓝色` |
+| `DEBUG` | 日志驱动排查 | `DEBUG: log_path=./logs/error.log` |
+
+📖 **完整文档**：[Skill 使用指南](./skills/sdd-riper-one/README.md)
+
+---
+
+### 方式二：手动遵循协议
+
+如果你不想安装 Skill，也可以手动引导 AI 遵循 RIPER 流程：
+
+1. **选择协议文件**（根据任务复杂度）
+   - 标准任务：[`SDD-RIPER-ONE.md`](./protocols/SDD-RIPER-ONE.md)
+   - 文档生成：[`RIPER-DOC.md`](./protocols/RIPER-DOC.md)
+   - 复杂重构：[`RIPER-5.md`](./protocols/RIPER-5.md)
+
+2. **在对话开始时发送**
+
+   ```text
+   请阅读并严格遵循以下协议：
+   [粘贴协议文件内容]
+   ```
+
+3. **手动推进阶段**
+
+   ```text
+   现在进入 Research 阶段，请调研代码库现状...
+   现在进入 Plan 阶段，请输出详细的实施计划...
+   Plan Approved，现在进入 Execute 阶段...
+   ```
 
 ---
 
@@ -99,5 +167,5 @@ graph LR
 
 ## 📚 深度阅读 (Deep Dive)
 
-* 🧠 **思维转型**: [从传统编程转向大模型编程](./docs/从传统编程转向大模型编程.md)  - 如何从工匠变为建筑师。
-* 📜 **理论体系**: [AI 原生研发范式](./docs/AI%20原生研发范式：从"代码中心"到"文档驱动"的演进.md)  - 为什么 Spec 是新时代的源代码。
+- 🧠 **思维转型**: [从传统编程转向大模型编程](./docs/从传统编程转向大模型编程.md)  - 如何从工匠变为建筑师。
+- 📜 **理论体系**: [AI 原生研发范式](./docs/AI%20原生研发范式：从"代码中心"到"文档驱动"的演进.md)  - 为什么 Spec 是新时代的源代码。
