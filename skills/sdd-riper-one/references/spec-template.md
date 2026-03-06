@@ -71,18 +71,47 @@
 - [ ] 2. ...
 - [ ] 3. ...
 
+### 4.4 Spec Review Notes (Optional Advisory, Pre-Execute)
+- Spec Review Matrix:
+| Check | Verdict | Evidence |
+|---|---|---|
+| Requirement clarity & acceptance | PASS/FAIL/PARTIAL | ... |
+| Plan executability | PASS/FAIL/PARTIAL | ... |
+| Risk / rollback readiness | PASS/FAIL/PARTIAL | ... |
+- Readiness Verdict: GO/NO-GO (Advisory)
+- Risks & Suggestions: ...
+- Phase Reminders (for later sections): ...
+- User Decision (if NO-GO): Proceed / Revise
+
 ## 5. Execute Log
 - [ ] Step 1: ...
 - [ ] Step 2: ...
 
 ## 6. Review Verdict
-- Spec coverage: PASS/FAIL
-- Behavior check: PASS/FAIL
+- Review Matrix (Mandatory):
+| Axis | Key Checks | Verdict | Evidence |
+|---|---|---|---|
+| Spec Quality & Requirement Completion | Goal/In-Scope/Acceptance 是否完整清晰；需求是否达成 | PASS/FAIL/PARTIAL | `spec section + test/log/人工验收` |
+| Spec-Code Fidelity | 文件、签名、checklist、行为是否与 Plan 一致 | PASS/FAIL/PARTIAL | `diff + code refs + execute log` |
+| Code Intrinsic Quality | 正确性、鲁棒性、可维护性、测试、关键风险 | PASS/FAIL/PARTIAL | `test/lint/review evidence` |
+- Overall Verdict: PASS/FAIL
+- Blocking Issues: ...
 - Regression risk: Low/Medium/High
 - Follow-ups: ...
 
 ## 7. Plan-Execution Diff
 - Any deviation from plan: ...
+
+## 8. Archive Record (Recommended at closure)
+- Archive Mode: `snapshot` / `thematic`
+- Audience: `human` / `llm` / `both`
+- Source Targets:
+  - `mydocs/specs/...`
+  - `mydocs/codemap/...`
+- Archive Outputs:
+  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_human.md`
+  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_llm.md`
+- Key Distilled Knowledge: ...
 ```
 
 ---
@@ -186,6 +215,19 @@
 |---|---|---|---|---|
 | api-service | `POST /api/release` | web-console | No | N/A |
 
+### 4.5 Spec Review Notes (Optional Advisory, Pre-Execute)
+- Spec Review Matrix:
+| Check | Verdict | Evidence |
+|---|---|---|
+| Requirement clarity & acceptance | PASS/FAIL/PARTIAL | ... |
+| Plan executability | PASS/FAIL/PARTIAL | ... |
+| Risk / rollback readiness | PASS/FAIL/PARTIAL | ... |
+| Cross-project contract completeness | PASS/FAIL/PARTIAL | ... |
+- Readiness Verdict: GO/NO-GO (Advisory)
+- Risks & Suggestions: ...
+- Phase Reminders (for later sections): ...
+- User Decision (if NO-GO): Proceed / Revise
+
 ## 5. Execute Log (grouped by project)
 #### [api-service]
 - [ ] Step 1: ...
@@ -194,8 +236,14 @@
 - [ ] Step 2: ...
 
 ## 6. Review Verdict
-- Spec coverage: PASS/FAIL
-- Behavior check: PASS/FAIL
+- Review Matrix (Mandatory):
+| Axis | Key Checks | Verdict | Evidence |
+|---|---|---|---|
+| Spec Quality & Requirement Completion | Goal/In-Scope/Acceptance 是否完整清晰；需求是否达成 | PASS/FAIL/PARTIAL | `spec section + test/log/人工验收` |
+| Spec-Code Fidelity | 文件、签名、checklist、行为是否与 Plan 一致 | PASS/FAIL/PARTIAL | `diff + code refs + execute log` |
+| Code Intrinsic Quality | 正确性、鲁棒性、可维护性、测试、关键风险 | PASS/FAIL/PARTIAL | `test/lint/review evidence` |
+- Overall Verdict: PASS/FAIL
+- Blocking Issues: ...
 - Regression risk (per project):
   - web-console: Low/Medium/High
   - api-service: Low/Medium/High
@@ -211,6 +259,17 @@
 ## 7. Plan-Execution Diff
 - Any deviation from plan: ...
 - Orphan changes (files outside registered projects): None
+
+## 8. Archive Record (Recommended at closure)
+- Archive Mode: `snapshot` / `thematic`
+- Audience: `human` / `llm` / `both`
+- Source Targets:
+  - `mydocs/specs/...`
+  - `mydocs/codemap/...`
+- Archive Outputs:
+  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_human.md`
+  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_llm.md`
+- Key Distilled Knowledge: ...
 ```
 
 ---
@@ -222,7 +281,10 @@
 - 中大型任务建议先具备 `Codemap + Context Bundle + 首版 Spec`；小任务可先出首版 Spec 再补齐。
 - 首版 Spec 允许先完成 Research 最小章节，后续章节按 RIPER 阶段逐步补齐。
 - 未经 `Plan Approved` 禁止进入 Execute。
+- `review_spec` 为建议性预审：`NO-GO` 不强制阻塞执行；若继续执行需记录用户决策。
+- `review_spec` 按阶段检查：未到阶段的缺失内容仅记录为 Reminder。
 - Review 未通过则返回 Research/Plan 重新闭环。
+- 任务收口时建议填写 `§8 Archive Record` 并执行 `archive` 生成沉淀文档。
 
 ### 多项目专属
 
@@ -231,3 +293,4 @@
 - `§4.4 Contract Interfaces` 仅在 `change_scope=cross` 时必填。
 - `§6.1 Touched Projects` 在任何跨项目改动后必填。
 - `§6. Review Verdict` 必须包含 per-project regression risk 和 cross-project consistency 检查。
+- 建议在 closure 阶段执行 `archive`，沉淀跨项目契约与演进结论。

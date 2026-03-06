@@ -155,6 +155,39 @@ Guideline:
 
 * **⛔ PAUSE POINT**: Trigger the **STOP-AND-WAIT Protocol** (Persist -> Display -> Batch Echo Blockers -> Wait).
 
+### 3.5️⃣ MODE 3.5: REVIEW_SPEC (Advisory Pre-Execute Review)
+
+* **Status**: `[LOCKED]`
+
+* **Trigger**:
+
+  * Command: `"REVIEW SPEC"`, `"评审规格"`, `"计划评审"`, `"spec review"`.
+  * Context: Plan completed and user wants a pre-execution quality check.
+
+* **Action**:
+
+    1. Re-read current-stage relevant Spec sections (stage-aware), not necessarily the full Spec.
+    2. Evaluate:
+       * Requirement clarity and acceptance verifiability.
+       * Plan executability (`File Changes`, `Signatures`, `Checklist`).
+       * Risk/rollback coverage and cross-project contract completeness (if any).
+    3. Persist advisory report into Spec:
+       * `Spec Review Matrix` (PASS/FAIL/PARTIAL + evidence)
+       * `Readiness Verdict`: `GO/NO-GO` (**advisory only**)
+       * `Risks & Suggestions`
+       * `Phase Reminders` (missing sections/details that are expected in later phases)
+
+* **Stage-Aware Rule**:
+
+    * Do NOT require all Spec sections to be complete at once.
+    * Missing content that belongs to future phases should be listed as reminder, not blocker.
+
+* **Advisory Rule (Non-Blocking)**:
+
+    * `NO-GO` does NOT hard-block execution.
+    * If user still wants execution, continue and record:
+      `User Decision: Proceed despite NO-GO`.
+
 ### 4️⃣ MODE 4: EXECUTE (The Builder)
 
 * **Status**: `[ACTIVE]`
@@ -189,7 +222,40 @@ Guideline:
 
 * **Status**: `[LOCKED]`
 
-* **Action**: Verify Code == Spec. Update Spec if reality changed.
+* **Trigger**:
+
+  * Command: `"REVIEW EXECUTE"`, `"代码评审"`, `"实现复盘"`, `"进入 review"`.
+
+* **Action** (Mandatory Three-Axis Review):
+
+    1. **Reload Truth**:
+       * Re-read latest Spec sections: Requirements, Plan, Execute Log, acceptance constraints.
+       * Re-read changed code/files before judging.
+
+    2. **Axis-1: Spec Quality & Requirement Completion**:
+       * Check whether Spec clearly defines `Goal/In-Scope/Acceptance`.
+       * Check whether objective and requirement completion can be evidenced.
+       * If requirement is still ambiguous or incomplete, mark as FAIL/PARTIAL with blockers.
+
+    3. **Axis-2: Spec-Code Fidelity**:
+       * Verify implementation matches Plan entries (`File Changes`, `Signatures`, `Checklist`).
+       * Verify behavior-level consistency (not only file-level consistency).
+       * Any unauthorized deviation must be recorded in `Plan-Execution Diff`.
+
+    4. **Axis-3: Code Intrinsic Quality (Beyond Spec)**:
+       * Evaluate correctness, robustness, maintainability/readability, test adequacy, and key risk (security/performance/regression).
+       * Report high-risk defects even if code is spec-compliant.
+
+    5. **Persist Review Report to Spec**:
+       * Update `## 6. Review Verdict` with a `Review Matrix`:
+         * Axis / Key Checks / PASS-FAIL-PARTIAL / Evidence
+       * Update `Overall Verdict` and `Blocking Issues`.
+       * Update `## 7. Plan-Execution Diff`.
+
+* **Decision Gate**:
+    1. Axis-1 or Axis-2 = `FAIL` -> **Review FAIL**, return to `Research` or `Plan`.
+    2. Axis-3 has high-risk unresolved issues -> **Review FAIL**, return to `Plan`.
+    3. Only when blockers are resolved can task be closed.
 
 ### 6️⃣ MODE 6: FAST (The Express Lane)
 
@@ -214,6 +280,64 @@ Guideline:
 * ✅ **Allowed**: UI tweaks, Configs, Single-file logic, Typos, Logging.
 
 * ❌ **Escalation**: If task touches >2 core files or Architecture, PAUSE and ask to switch to `[PLAN]`.
+
+---
+
+## 🗃️ ARCHIVE PROTOCOL (Knowledge Distillation & Consolidation)
+
+### Design Goal
+
+Convert intermediate artifacts (especially Specs/CodeMaps) into reusable knowledge assets for:
+1) **Human reporting** and
+2) **LLM continuation/context reuse**.
+
+### Trigger
+
+* Command: `"ARCHIVE"`, `"归档"`, `"沉淀"`, `"archive"`.
+* Context: Task has finished Review, or user requests consolidation/summarization of existing spec/codemap files.
+
+### Input
+
+* `targets` (required): one or multiple files/directories to archive.
+* `kind` (optional): `spec` / `codemap` / `mixed` (default: `mixed`).
+* `audience` (optional): `human` / `llm` / `both` (default: `both`).
+* `mode` (optional): `snapshot` / `thematic` (default: `snapshot`).
+  * `snapshot`: one task's artifacts -> one archive topic.
+  * `thematic`: multiple tasks -> one consolidated theme.
+* `topic` (optional): archive topic title; infer from targets if omitted.
+
+### Action
+
+1. **Read Sources**:
+   * Load specified spec/codemap artifacts.
+   * Keep source list explicit (`Source Index`).
+2. **Consolidate Facts**:
+   * Merge duplicate points.
+   * Mark conflicts explicitly; do NOT silently resolve contradictory statements.
+3. **Generate Audience-Specific Outputs**:
+   * `human` output focuses on objective, scope, decisions, outcomes, risks, and report-ready narrative.
+   * `llm` output focuses on constraints, interfaces/contracts, code touchpoints, accepted patterns, anti-patterns, and next-step hooks.
+4. **Attach Traceability**:
+   * Each key conclusion MUST include `Trace to Sources` mapping (conclusion -> source file/section).
+5. **Persist Files**:
+   * `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_human.md`
+   * `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_llm.md`
+   * If `audience=human` or `llm`, generate only the requested output.
+
+### Constraints
+
+* Default is **archive-only** (no deletion/move of original artifacts).
+* If target Spec is still active and not Review-complete, MUST warn and require explicit user confirmation.
+* Archive is a knowledge derivative, not the new source-of-truth for active execution. Active execution still follows latest live Spec.
+
+### Trigger Words
+
+| Trigger | Action |
+|---|---|
+| `ARCHIVE` / `归档` | Run archive workflow for specified targets. |
+| `沉淀` | Distill intermediate artifacts into reusable knowledge docs. |
+| `主题归档` | Force `mode=thematic` across multiple tasks/files. |
+| `快照归档` | Force `mode=snapshot` for a single task. |
 
 ---
 
@@ -471,6 +595,9 @@ Enable Agent to diagnose bugs or verify feature correctness using **logs + Spec 
 * **"全部 / all / execute all / 继续完成所有 / 一次性完成"** = Batch Override (execute remaining checklist items without step-by-step confirmation).
 * **"MULTI / 多项目"** = Enable Multi-Project Lightweight protocol (parent `workdir` + local-by-default scope).
 * **"CROSS / 跨项目"** = Switch `change_scope` to `cross` for explicit cross-project edits.
+* **"REVIEW SPEC / 评审规格 / 计划评审"** = Run advisory pre-execution spec review (`GO/NO-GO` suggestion, non-blocking).
+* **"REVIEW EXECUTE / 代码评审 / 实现复盘"** = Run mandatory three-axis post-execution review and update Spec verdict sections.
+* **"ARCHIVE / 归档 / 沉淀"** = Distill and persist reusable human/llm knowledge docs from intermediate artifacts.
 
 **Auto-switch to FAST (non-code tasks)**:
 If the user asks for **documents / summaries / descriptions / translations / formatting / templates / copywriting** (no code change required), immediately switch to `MODE 6: FAST` and skip RIPER flow.  
@@ -539,9 +666,11 @@ Section requirements are phase-based (not all-at-once):
 * **Add when entering later phases**:
   7. `Innovate` (optional; if skipped, include skip reason)
   8. `Plan`
-  9. `Execute Log`
-  10. `Review Verdict`
-  11. `Plan-Execution Diff`
+  9. `Spec Review Notes` (optional advisory, pre-execute)
+  10. `Execute Log`
+  11. `Review Verdict`
+  12. `Plan-Execution Diff`
+  13. `Archive Record` (optional but recommended after task closure)
 
 Before task closure, Spec should be fully updated (or contain explicit `Skipped + Reason` for optional sections).
 
