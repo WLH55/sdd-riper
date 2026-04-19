@@ -91,25 +91,33 @@ cp -r skills/sdd-riper-one-light/   $TARGET/.claude/skills/sdd-riper-one-light/
 # 2. 注册 slash commands（两个版本都装，命令不冲突）
 cp skills/sdd-riper-one/commands/*.md       $TARGET/.claude/commands/sdd/
 cp skills/sdd-riper-one-light/commands/*.md $TARGET/.claude/commands/sdd/
-
-# 3. 将 SKILL.md 内容追加到目标项目的 CLAUDE.md
-cat skills/sdd-riper-one-light/SKILL.md >> $TARGET/CLAUDE.md
 ```
+
+然后在目标项目的 `CLAUDE.md` 中编排 skill 使用规则（**不要复制 SKILL.md 内容**，只写引用路径）：
+
+```markdown
+## Skill 使用约定
+
+- 默认使用 sdd-riper-one-light，读取 `.claude/skills/sdd-riper-one-light/SKILL.md`
+- 复杂任务切换到 sdd-riper-one，读取 `.claude/skills/sdd-riper-one/SKILL.md`
+```
+
+AI 会根据 CLAUDE.md 的编排自动读取对应 SKILL.md 的内容，不需要把协议复制进 CLAUDE.md。
 
 安装后的目标项目结构：
 
 ```
 目标项目/
-  CLAUDE.md                              ← 包含 SKILL.md 协议
+  CLAUDE.md                              ← 编排规则（引用 skill 路径，不包含协议内容）
   .claude/
     commands/sdd/                        ← slash commands
       ff.md, fix.md, bootstrap.md, ...
     skills/
       sdd-riper-one/                     ← 标准版完整包
-        SKILL.md
+        SKILL.md                         ← AI 按需读取
         commands/
-        references/                      ← 按需加载的详细文档
-        scripts/                         ← 自动化脚本
+        references/
+        scripts/
       sdd-riper-one-light/               ← Light 版完整包
         SKILL.md
         commands/
@@ -122,19 +130,24 @@ cat skills/sdd-riper-one-light/SKILL.md >> $TARGET/CLAUDE.md
 - `scripts/` 提供 archive 等自动化工具
 - SKILL.md 里写了 `references/spec-template.md`、`references/multi-project.md` 等路径，如果 references 没装，AI 读不到
 
+**为什么不要复制 SKILL.md 到 CLAUDE.md**：
+- CLAUDE.md 负责编排"什么时候用哪个 skill"，不是协议本身
+- AI 会在需要时自动读取 SKILL.md，不需要常驻在 CLAUDE.md 里
+- 保持 CLAUDE.md 精简，多个 skill 可以灵活切换
+
 ### 方式二：Cursor
 
 ```bash
 # 1. 复制完整 skill 包到项目根目录
 cp -r skills/sdd-riper-one/ <目标项目>/sdd-riper-one/
 
-# 2. 将 SKILL.md 作为 .cursorrules
-cp skills/sdd-riper-one-light/SKILL.md <目标项目>/.cursorrules
+# 2. 在 .cursorrules 中编排 skill 引用
+echo "默认读取 sdd-riper-one-light/SKILL.md" >> <目标项目>/.cursorrules
 ```
 
 ### 方式三：Claude Desktop / Claude.ai
 
-1. 复制 `SKILL.md` 内容到 Custom Instructions
+在 Custom Instructions 中编排 skill 使用规则，指向项目中的 SKILL.md 文件路径
 2. 将 `references/` 和 `scripts/` 放到项目可访问的目录
 3. AI 需要时按路径读取
 
