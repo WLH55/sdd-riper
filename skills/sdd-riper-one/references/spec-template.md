@@ -4,10 +4,36 @@
 
 ---
 
+## 状态块说明
+
+每个 spec 文件顶部必须包含状态块（blockquote 格式），作为 AI 的"程序计数器"。新会话通过 `/sdd:resume` 读取状态块即可恢复执行。
+
+```markdown
+> **Phase**: <Research|Innovate|Plan|Execute|Review|Done> | **Updated**: YYYY-MM-DD HH:MM
+> **Goal**: <核心目标>
+> **Approval**: Pending / Approved / N/A        ← 可选，Light 版省略
+> **Scope**: In <...> | Out <...>               ← 可选，Light 版省略
+> **Done Contract**: <完成定义>                  ← 可选
+> **Last**: <上次完成什么> | **Next**: <下一步动作>
+```
+
+- `Phase`、`Updated`、`Goal`、`Last`、`Next` 为必填字段
+- `Approval`、`Scope`、`Done Contract` 为可选字段
+- 每轮 AI 回复结束后必须更新 `Updated`、`Last`、`Next`；阶段切换时更新 `Phase`
+- Light 版使用相同格式，仅省略可选字段
+
+---
+
 ## 单项目模板（默认）
 
 ```markdown
 # SDD Spec: <Task Name>
+
+> **Phase**: Research | **Updated**: YYYY-MM-DD HH:MM
+> **Goal**: <核心目标>
+> **Approval**: Pending
+> **Scope**: In <...> | Out <...>
+> **Last**: <初始化> | **Next**: <调研代码库>
 
 ## 0. Open Questions
 - [ ] None
@@ -25,7 +51,7 @@
 
 ## 1.5 Codemap Used (Feature/Project Index)
 - Codemap Mode: `feature` / `project`
-- Codemap File: `mydocs/codemap/YYYY-MM-DD_hh-mm_<name>.md`
+- Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_<name>.md`
 - Key Index:
   - Entry Points / Architecture Layers: ...
   - Core Logic / Cross-Module Flows: ...
@@ -33,7 +59,7 @@
 
 ## 1.6 Context Bundle Snapshot (Lite/Standard)
 - Bundle Level: `Lite` / `Standard`
-- Bundle File: `mydocs/context/YYYY-MM-DD_hh-mm_<task>_context_bundle.md`
+- Bundle File: `docs/context/YYYY-MM-DD_HH-MM_<task>_context_bundle.md`
 - Key Facts: ...
 - Open Questions: ...
 
@@ -106,11 +132,11 @@
 - Archive Mode: `snapshot` / `thematic`
 - Audience: `human` / `llm` / `both`
 - Source Targets:
-  - `mydocs/specs/...`
-  - `mydocs/codemap/...`
+  - `docs/specs/...`
+  - `docs/codemap/...`
 - Archive Outputs:
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_human.md`
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_llm.md`
+  - `docs/archive/YYYY-MM-DD_HH-MM_<topic>_human.md`
+  - `docs/archive/YYYY-MM-DD_HH-MM_<topic>_llm.md`
 - Key Distilled Knowledge: ...
 ```
 
@@ -120,6 +146,12 @@
 
 ```markdown
 # SDD Spec: <Task Name>
+
+> **Phase**: Research | **Updated**: YYYY-MM-DD HH:MM
+> **Goal**: <核心目标>
+> **Approval**: Pending
+> **Scope**: In <...> | Out <...>
+> **Last**: <初始化> | **Next**: <多项目自动发现>
 
 ## 0. Open Questions
 - [ ] None
@@ -150,16 +182,16 @@
 
 ## 1.5 Codemap Used (Per-Project Index)
 ### web-console
-- Codemap File: `mydocs/codemap/YYYY-MM-DD_hh-mm_web-console项目总图.md`
+- Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_web-console项目总图.md`
 - Key Index: ...
 
 ### api-service
-- Codemap File: `mydocs/codemap/YYYY-MM-DD_hh-mm_api-service项目总图.md`
+- Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_api-service项目总图.md`
 - Key Index: ...
 
 ## 1.6 Context Bundle Snapshot (Lite/Standard)
 - Bundle Level: `Lite` / `Standard`
-- Bundle File: `mydocs/context/YYYY-MM-DD_hh-mm_<task>_context_bundle.md`
+- Bundle File: `docs/context/YYYY-MM-DD_HH-MM_<task>_context_bundle.md`
 - Key Facts: ...
 - Open Questions: ...
 
@@ -264,11 +296,11 @@
 - Archive Mode: `snapshot` / `thematic`
 - Audience: `human` / `llm` / `both`
 - Source Targets:
-  - `mydocs/specs/...`
-  - `mydocs/codemap/...`
+  - `docs/specs/...`
+  - `docs/codemap/...`
 - Archive Outputs:
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_human.md`
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_<topic>_llm.md`
+  - `docs/archive/YYYY-MM-DD_HH-MM_<topic>_human.md`
+  - `docs/archive/YYYY-MM-DD_HH-MM_<topic>_llm.md`
 - Key Distilled Knowledge: ...
 ```
 

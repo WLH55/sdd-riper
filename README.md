@@ -1,200 +1,201 @@
-# ⚡️ SDD-RIPER: AI-Native Development Protocol
+# SDD-RIPER: AI-Native Development Protocol
 
 > **The Constitution for Human-AI Collaboration.**
 > 像指挥军团一样指挥 AI，而不是像保姆一样修补代码。
 
 ---
 
-## 📖 30秒读懂 SDD-RIPER
+## 30 秒读懂 SDD-RIPER
 
-**SDD (Spec-Driven Development)** 是一套为大模型编程量身定制的研发协议。它将程序员的角色从“代码产出者”重定义为**“意图定义者”**。
-
-### 核心公式
+**SDD (Spec-Driven Development)** 是一套为大模型编程量身定制的研发协议。核心公式：
 
 > **Spec (Truth) + AI (Execute) = Software 2.0**
 
-### ⚡️ 为什么你需要它？
+解决大模型编程的四个工程痛点：
 
-大模型有四个绕不开的工程痛点：
-
-- 🧠 **上下文腐烂**（大模型的阿喀琉斯之踵）：对话越长，AI 越容易遗忘前文约束，悄悄破坏已有逻辑——这是模型架构的固有局限，无法靠"更强的模型"解决
-- 👀 **审查瘫痪**：AI 秒生成 500 行代码，人根本 Review 不过来，质量失控
-- 🔌 **维护断层**：全是 AI 生成的陌生代码，两周后不敢动，改一行崩三处
-- 🤔 **代码不信任**：不知道 AI 为什么这么写，不敢上线、不敢重构——很多人因此根本不敢用大模型编程
-
-| 🚫 痛点 (Without SDD) | ✅ SDD 解法 |
-| --- | --- |
-| **上下文腐烂**：AI 聊着聊着就忘了前文约束，破坏旧逻辑。 | **Spec 锚点**：强制 AI 每次行动前读取 Protocol，状态永久"满血"。 |
-| **审查瘫痪**：AI 秒生成 500 行代码，人类根本 Review 不过在这里。 | **RIPER Loop**：先审 Plan 再写 Code。**审逻辑代替审代码**。 |
-| **不可维护**：全是 AI 生成的陌生代码，两周后不敢动。 | **文档即源码**：代码是消耗品，Spec 才是资产。修 Bug 先修文档。 |
-| **代码不信任**：不敢用大模型写的代码上线，怕有雷。 | **三角定位**：Spec + 执行日志 + 代码三方交叉验证，需求是否完成、Bug 出在哪里一目了然，**增强信心，让人敢用** |
+| 痛点 | SDD 解法 |
+|------|---------|
+| **上下文腐烂**：AI 聊着聊着就忘了前文约束 | **Spec 状态块**：状态持久化在文件里，不靠 AI 记忆 |
+| **审查瘫痪**：AI 秒生成 500 行代码，人 Review 不过来 | **RIPER 门禁**：先审 Plan 再写 Code，审逻辑代替审代码 |
+| **维护断层**：全是 AI 生成的陌生代码，不敢动 | **文档即源码**：代码是消耗品，Spec 才是资产 |
+| **代码不信任**：不知道 AI 为什么这么写，不敢上线 | **三轴审查**：Spec + 执行日志 + 代码三方交叉验证 |
 
 ---
 
-## 🎯 一句话：这个项目解决了什么问题？
+## 双版本架构
 
-**AI 编程最大的坑不是"AI 不够聪明"，而是"人管不住 AI"。**
+| 版本 | 定位 | 适用场景 | 入口 |
+|------|------|---------|------|
+| `sdd-riper-one-light` | **快进模式**：checkpoint-driven | 日常编码、小任务、快速开发 | `/sdd:ff` |
+| `sdd-riper-one` | **标准模式**：完整 RIPER 门禁 | 架构设计、复杂重构、跨项目协作 | `/sdd:bootstrap` |
 
-你一定遇到过：AI 聊着聊着就忘了之前的约束，改着改着就把旧逻辑搞坏了，生成 500 行代码你根本审不过来，两周后再看全是"AI 写的陌生代码"不敢动……
-
-**SDD-RIPER** 就是为了解决这些问题而生的——一套**让 AI 围绕文档干活**的研发协议，配套**可一键安装的 Skill**，让你从"被 AI 带着跑"变成"指挥 AI 按图施工"。
-
-### 虚构项目演练（以下场景与数据为教学示例，用于说明方法的适用范围）
-
-- ✅ 在**百万行 Java 代码**的遗留系统上，用 Code Map 战术 **20 分钟梳理清楚核心链路**
-- ✅ **零 Java 经验**的情况下，靠 SDD 协议完成复杂业务需求开发
-- ✅ Bug 率显著下降：主语言 **-18%**，非主语言（Go/Python/Node.js）**-37%**
-- ✅ 日常需求周期：**1~2 周 → 3~4 天**；大型需求：**2 个月 → 1 个月**
-- ✅ 复杂交付场景的人力投入：**可显著下降**，团队协作效率同步提升
-- ✅ 30 天 **10.8 亿 Token** 重度实战，四窗口并行，核心人员只做阶段性 Review
-
-### 典型应用场景
-
-| 场景 | 痛点 | SDD-RIPER 怎么解 |
-| --- | --- | --- |
-| **老业务交接与持续维护** | 遗留系统无人敢动，交接靠口头、靠"看代码"；核心研发不应长期困在老需求里 | Code Map 20 分钟梳理核心链路，Spec 固化业务上下文，**低代码经验的同学也能接手老业务的日常迭代和维护**，释放核心研发投入新业务 |
-| **低经验人员交付核心业务** | 新人/跨团队支援不熟悉代码库，上手周期长 | 有 Spec + Code Map 就能按图施工，**零 Java 经验也能完成复杂需求** |
-| **人力紧张时的并行交付** | 核心研发不够用，但需求排不完 | 核心人员只写 Spec + 审 Plan，**执行交给 AI + 非核心研发人力**，一人指挥多路并行 |
-| **高敏感代码安全合规** | 核心代码不敢用外部模型 | 先在受控环境中整理抽象接口与约束 Spec，再让外部模型基于抽象 Spec 做设计，**原始代码不外发** |
-
-### 组织影响力
-
-- 📦 提供可复用的双版本 Skill（`sdd-riper-one-light` + `sdd-riper-one`）
-- 📚 提供配套协议、方法论文章与落地教程，形成完整学习路径
-- 🧩 支持从个人试用到团队推广的渐进式落地
-- 🔐 文档以仓库内可审阅内容为主，便于统一治理与示例维护
+- **默认推荐 Light 版**——适合大多数日常开发。
+- **复杂任务升级到标准版**——需要完整 `Research -> Plan -> Execute -> Review` 门禁时使用。
 
 ---
 
-## 🚀 快速开始
+## 命令速查
 
-### 方式一：使用 Skill（推荐 - 开箱即用）
+### Light 版（日常快进）
 
-**Skill 是什么？** 将 SDD-RIPER 协议封装为可执行命令的配置文件，让 AI 自动遵循相应工作流。
+| 命令 | 用途 |
+|------|------|
+| `/sdd:ff <任务>` | 一键快进：任务 → spec → 实现 → 回写 |
+| `/sdd:fix <修改>` | 零 spec 快修：纯机械改动（typo、配置值等） |
+| `/sdd:resume [spec]` | 跨会话恢复：从状态块读取断点继续 |
+| `/sdd:archive [spec]` | 归档：将完成的 spec 沉淀为知识 |
 
-#### 先选版本
+### 标准版（门禁流程）
 
-| Skill | 定位 | 适用场景 | 目录 |
-| --- | --- | --- | --- |
-| `sdd-riper-one-light` | **强模型优化版**：checkpoint-driven + 强控制内核 | `GPT-5.4`、高输入、多轮、高频 coding；核心工作流是先复述任务理解、再强调核心目标、持续总结进度，并保留 `No Spec, No Code` 与 `No Approval, No Execute` | [`skills/sdd-riper-one-light/`](./skills/sdd-riper-one-light/) |
-| `sdd-riper-one` | **标准版**：完整 RIPER 阶段门禁 | 架构设计、复杂重构、跨项目协作、复杂迁移、严格评审 | [`skills/sdd-riper-one/`](./skills/sdd-riper-one/) |
-
-- **默认推荐 `sdd-riper-one-light`**：适合强模型时代的主力工作流。
-- **复杂任务升级到 `sdd-riper-one`**：需要完整 `Research -> Innovate -> Plan -> Execute -> Review` 时使用。
-
-#### 安装步骤
-
-1. **选择你的 AI 平台**
-   - **Claude Desktop / Claude.ai**：复制选定版本的 `SKILL.md` 到 Custom Instructions
-     - Light: [`skills/sdd-riper-one-light/SKILL.md`](./skills/sdd-riper-one-light/SKILL.md)
-     - Standard: [`skills/sdd-riper-one/SKILL.md`](./skills/sdd-riper-one/SKILL.md)
-   - **Cursor**：将选定版本的 `SKILL.md` 复制为项目根目录的 `.cursorrules` 文件
-   - **其他 AI Agent**：查看对应安装指南
-     - Light: [README](./skills/sdd-riper-one-light/README.md)
-     - Standard: [README](./skills/sdd-riper-one/README.md)
-
-2. **验证安装**
-
-   ```text
-   在 AI 对话中输入：create_codemap
-   或直接要求先复述任务理解，再建立/更新最小 spec，并输出 checkpoint。
-   如果 AI 识别并按协议执行，说明安装成功 ✅
-   ```
-
-3. **开始第一个任务**
-
-   `Light` 示例：
-
-   ```text
-   请启用 $sdd-riper-one-light，并先用你自己的话复述对任务的理解，明确核心目标、边界和暂不处理项；然后建立/更新最小 spec，给我 checkpoint；获批后再执行：
-   - task=用户登录功能
-   - goal=实现完整的登录流程
-   - requirement=docs/requirements/login.md
-   ```
-
-   `Standard` 示例：
-
-   ```text
-   create_codemap: mode=project, scope=my-project
-   build_context_bundle: ./docs/requirements/
-   sdd_bootstrap: task=用户登录功能, goal=实现完整的登录流程
-   ```
-
-#### 核心命令速查
-
-| 命令 | 用途 | 示例 |
-|------|------|------|
-| `create_codemap` | 生成代码地图（功能级/项目级） | `create_codemap: mode=feature, scope=登录模块` |
-| `build_context_bundle` | 整理需求上下文 | `build_context_bundle: ./docs/requirements/` |
-| `sdd_bootstrap` | 启动 SDD 任务 | `sdd_bootstrap: task=用户认证, goal=...` |
-| `FAST` | 快速修改（小改动） | `FAST: 修改按钮颜色为蓝色` |
-| `DEBUG` | 日志驱动排查 | `DEBUG: log_path=./logs/error.log` |
-
-📖 **完整文档**：[`Light` 使用指南](./skills/sdd-riper-one-light/README.md) ｜ [`Standard` 使用指南](./skills/sdd-riper-one/README.md)
+| 命令 | 用途 |
+|------|------|
+| `/sdd:codemap [scope]` | 生成代码地图（feature/project 级） |
+| `/sdd:bootstrap task=<...> goal=<...>` | 启动任务，进入 Research 阶段 |
+| `/sdd:plan` | 规划阶段：产出 File Changes + Checklist |
+| `/sdd:execute` | 执行阶段：按 Plan 逐项实施 |
+| `/sdd:review` | 三轴审查：Spec 质量 + 代码一致性 + 代码质量 |
+| `/sdd:resume [spec]` | 跨会话恢复 |
+| `/sdd:archive [spec]` | 归档 |
 
 ---
 
-### 方式二：手动遵循协议
+## 状态块：AI 的"程序计数器"
 
-如果你不想安装 Skill，也可以手动引导 AI 遵循 RIPER 流程：
+每个 spec 文件顶部包含状态块，作为 AI 的执行状态存储。新会话通过 `/sdd:resume` 读取即可恢复，不需要 AI "记住"任何上下文。
 
-1. **选择协议文件**（根据任务复杂度）
-   - 标准任务：[`SDD-RIPER-ONE.md`](./protocols/SDD-RIPER-ONE.md)
-   - 文档生成：[`RIPER-DOC.md`](./protocols/RIPER-DOC.md)
-   - 复杂重构：[`RIPER-5.md`](./protocols/RIPER-5.md)
-
-2. **在对话开始时发送**
-
-   ```text
-   请阅读并严格遵循以下协议：
-   [粘贴协议文件内容]
-   ```
-
-3. **手动推进阶段**
-
-   ```text
-   现在进入 Research 阶段，请调研代码库现状...
-   现在进入 Plan 阶段，请输出详细的实施计划...
-   Plan Approved，现在进入 Execute 阶段...
-   ```
-
----
-
-## 🔄 The RIPER Loop (标准作业流)
-
-我们强制 AI 遵循以下五步状态机，拒绝"一发入魂"的幻觉代码：
-
-```mermaid
-graph LR
-    R[🔍 Research<br>调研/事实锁定] --> I[💡 Innovate<br>方案设计]
-    I --> P[📝 Plan<br>原子级规划]
-    P -->|Human Sign-off| E[🚀 Execute<br>按图施工]
-    E --> V[👀 Review<br>反向验收]
-    V -->|Fix Spec| P
+```markdown
+> **Phase**: Plan | **Updated**: 2026-04-19 14:30
+> **Goal**: 实现完整登录流程
+> **Approval**: Pending
+> **Scope**: In 登录页、JWT | Out 注册
+> **Last**: 完成 Research | **Next**: 完成 Plan §4
 ```
 
-1. **Research**: 拒绝瞎猜，先查代码库现状。
-2. **Innovate**: 审讯式设计，寻找最优解。
-3. **Plan**: **核心环节**。输出详细步骤，人类批准后才准动手。
-4. **Execute**: 无脑执行，不仅是 Coder，更是 Builder。
-5. **Review**: AI 自查 + 生成验收报告。
+状态块统一格式，Light 版是标准版的子集（省略可选字段）。
 
 ---
 
-## 📂 协议资产清单
+## 安装
 
-| 协议文件 | 适用场景 | 对应模型建议 |
-| --- | --- | --- |
-| [`SDD-RIPER-ONE.md`](./protocols/SDD-RIPER-ONE.md)  | **标准版**：主力协议，包含完整闭环。 | Claude 4.5 / GPT-5.1 / Qwen3 |
-| [`RIPER-DOC.md`](./protocols/RIPER-DOC.md)  | **文档专家**：专门用于生成 README/API 文档。 | DeepSeek V3 / Gemini Pro |
-| [`RIPER-5.md`](./protocols/RIPER-5.md) | **严格版**：上一代状态机，适合复杂逻辑重构。 | o3 / o4-mini |
+### 方式一：Claude Code（推荐）
+
+将 `commands/` 目录下的 `.md` 文件复制到目标项目的 `.claude/commands/sdd/`：
+
+```bash
+# Light 版（日常开发）
+cp skills/sdd-riper-one-light/commands/*.md <目标项目>/.claude/commands/sdd/
+
+# 标准版（复杂任务）
+cp skills/sdd-riper-one/commands/*.md <目标项目>/.claude/commands/sdd/
+
+# 也可以两个都装，命令不冲突
+```
+
+将选定版本的 `SKILL.md` 复制到目标项目的 `CLAUDE.md`（或追加到已有 CLAUDE.md）。
+
+### 方式二：其他 AI 平台
+
+| 平台 | 安装方式 |
+|------|---------|
+| **Cursor** | 将 `SKILL.md` 复制为项目根目录的 `.cursorrules` 文件 |
+| **Claude Desktop / Claude.ai** | 复制 `SKILL.md` 内容到 Custom Instructions |
+| **其他 AI Agent** | 查看 `agents/openai.yaml` 配置 |
+
+### 验证安装
+
+```text
+输入 /sdd:ff 测试一下这个功能
+如果 AI 识别并按协议执行，说明安装成功
+```
 
 ---
 
-## 📚 深度阅读 (Deep Dive)
+## 文件结构
 
-| 文档 | 适合人群 | 核心内容 |
-|------|---------|---------|
-| 🧠 [从传统编程转向大模型编程](./docs/从传统编程转向大模型编程.md) | 个人开发者 | 思维转型：如何从工匠变为建筑师 |
-| 📜 [AI 原生研发范式](./docs/AI%20原生研发范式：从"代码中心"到"文档驱动"的演进.md) | 架构师/技术负责人 | 理论体系：为什么 Spec 是新时代的源代码 |
-| 🚀 [团队落地指南](./docs/团队落地指南.md) | TL/主管/团队负责人 | 实战指南：如何在一周内让团队跑通大模型编程 |
+```
+skills/
+  sdd-riper-one/                # 标准版
+    SKILL.md                    # 核心协议（~70 行）
+    commands/                   # 7 个 slash command
+      codemap.md
+      bootstrap.md
+      plan.md
+      execute.md
+      review.md
+      archive.md
+      resume.md
+    references/                 # 详细参考文档（按需加载）
+    agents/openai.yaml          # OpenAI Agent 配置
+
+  sdd-riper-one-light/          # Light 版
+    SKILL.md                    # 核心协议（~50 行）
+    commands/                   # 4 个 slash command
+      ff.md
+      fix.md
+      resume.md
+      archive.md
+    references/                 # 按需加载的模块
+    examples/                   # 示例 spec 和 codemap
+
+.claude/commands/sdd/           # 安装即用副本（11 个命令）
+```
+
+---
+
+## 核心原则
+
+- **No Spec, No Code**：没有 spec 不写代码（`/sdd:fix` 除外）
+- **Spec is Truth**：Spec 是唯一真相源，聊天决议必须回源到 Spec
+- **No Approval, No Execute**：没有明确批准不执行
+- **Done by Evidence**：完成由证据证明，不是模型自行宣布
+- **Reverse Sync**：执行后必须回写 Spec
+
+## 安全底线
+
+- 永远不要执行 `git clean`（任何参数），防止未提交数据丢失
+
+---
+
+## 推荐的 CLAUDE.md 配置
+
+建议将以下规则写入目标项目的 `CLAUDE.md`（Claude Code）、`.cursorrules`（Cursor）或 Custom Instructions（Claude Desktop）。这些规则与 SKILL.md 配合使用，作为项目级行为约束。
+
+```markdown
+# 工作指南
+
+- 使用中文交流。
+- 永远不要执行 `git clean`（任何参数，尤其是 `-fdx`）。
+- `No Spec, No Code`
+- `No Approval, No Execute`
+- `Spec is Truth`
+
+## Skill 使用约定
+
+- 默认使用 `sdd-riper-one`
+- 仅当任务明确需要轻量模式时切换到 `sdd-riper-one-light`
+- 除非我明确要求，否则不要主动安装依赖、升级依赖、删除依赖或修改锁文件
+- 对可能造成不可逆后果、批量删除、覆盖、重置、迁移或外部写操作的命令，先等待我确认
+
+## Git 边界
+
+- 默认严格尊重 `.gitignore` 与所有已忽略路径
+- 不要主动使用 `git add -f` / `git add --force`
+- 被 `.gitignore` 忽略的内容默认不提交；只有我明确点名路径时，才允许精确提交
+
+## Spec 同步
+
+- 当改动影响需求、接口、行为、约束、流程或实现决策时，执行后同步更新 spec
+- 纯机械性改动可不更新 spec
+
+## 执行规则
+
+- 代码修改前先提交方案并等待我确认；文档修改可直接执行
+- 等待确认期间，先将方案收敛到最小改动集，不要无限扩展搜索范围
+- 修改文件时，不要一次性重写整个文件；优先小步、分段、少量多次修改
+- 除非我明确要求，否则不要做大范围重构、整文件替换或超大 patch
+- 多文件改动时，先完成最核心链路的最小可用修改，再逐步补齐
+- 不要顺手修改与当前任务无关的内容
+- 如果连续 2 轮以上仅阅读/搜索而没有实际修改，先停止继续探索，并明确说明准备修改哪些文件、先改哪一处、为什么
+```
+
+将上述内容与选定版本的 `SKILL.md` 内容合并后写入目标项目的 `CLAUDE.md` 即可。

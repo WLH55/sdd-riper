@@ -1,23 +1,27 @@
 # Conventions Reference
 
-仅在需要落盘 spec / codemap 时查看。  
+仅在需要落盘 spec / codemap 时查看。
 本文件不是常驻协议，不应在每轮任务中重复注入。
 
 ## 时间前缀
 
-- 统一使用：`YYYY-MM-DD_hh-mm_`
+- 统一使用：`YYYY-MM-DD_HH-MM_`
 
 ## 目录约定
 
-- `micro-spec`：`mydocs/micro_specs/`
-- `standard spec`：`mydocs/specs/`
-- `codemap`：`mydocs/codemap/`
+- `micro-spec`：`docs/specs/`
+- `standard spec`：`docs/specs/`
+- `codemap`：`docs/codemap/`
+- `context bundle`：`docs/context/`
+- `archive`：`docs/archive/`
 
 ## 文件命名
 
-- `micro-spec`：`mydocs/micro_specs/YYYY-MM-DD_hh-mm_<TaskName>.md`
-- `standard spec`：`mydocs/specs/YYYY-MM-DD_hh-mm_<TaskName>.md`
-- `codemap`：`mydocs/codemap/YYYY-MM-DD_hh-mm_<ProjectOrFeature>.md`
+- `micro-spec`：`docs/specs/YYYY-MM-DD_HH-MM_<TaskName>.md`
+- `standard spec`：`docs/specs/YYYY-MM-DD_HH-MM_<TaskName>.md`
+- `codemap`：`docs/codemap/YYYY-MM-DD_HH-MM_<ProjectOrFeature>.md`
+- `context bundle`：`docs/context/YYYY-MM-DD_HH-MM_<task>_context_bundle.md`
+- `archive`：`docs/archive/YYYY-MM-DD_HH-MM_<topic>_{human|llm}.md`
 
 ## 何时优先用 `micro-spec`
 
