@@ -77,35 +77,76 @@
 
 ## 安装
 
+Skill 是一个完整包，包含 SKILL.md（协议层）+ commands/（命令层）+ references/（参考文档）+ scripts/（自动化脚本）。安装时需要完整复制，不能只装一部分。
+
 ### 方式一：Claude Code（推荐）
 
-将 `commands/` 目录下的 `.md` 文件复制到目标项目的 `.claude/commands/sdd/`：
-
 ```bash
-# Light 版（日常开发）
-cp skills/sdd-riper-one-light/commands/*.md <目标项目>/.claude/commands/sdd/
+TARGET=<目标项目路径>
 
-# 标准版（复杂任务）
-cp skills/sdd-riper-one/commands/*.md <目标项目>/.claude/commands/sdd/
+# 1. 复制完整 skill 包到目标项目
+cp -r skills/sdd-riper-one/         $TARGET/.claude/skills/sdd-riper-one/
+cp -r skills/sdd-riper-one-light/   $TARGET/.claude/skills/sdd-riper-one-light/
 
-# 也可以两个都装，命令不冲突
+# 2. 注册 slash commands（两个版本都装，命令不冲突）
+cp skills/sdd-riper-one/commands/*.md       $TARGET/.claude/commands/sdd/
+cp skills/sdd-riper-one-light/commands/*.md $TARGET/.claude/commands/sdd/
+
+# 3. 将 SKILL.md 内容追加到目标项目的 CLAUDE.md
+cat skills/sdd-riper-one-light/SKILL.md >> $TARGET/CLAUDE.md
 ```
 
-将选定版本的 `SKILL.md` 复制到目标项目的 `CLAUDE.md`（或追加到已有 CLAUDE.md）。
+安装后的目标项目结构：
 
-### 方式二：其他 AI 平台
+```
+目标项目/
+  CLAUDE.md                              ← 包含 SKILL.md 协议
+  .claude/
+    commands/sdd/                        ← slash commands
+      ff.md, fix.md, bootstrap.md, ...
+    skills/
+      sdd-riper-one/                     ← 标准版完整包
+        SKILL.md
+        commands/
+        references/                      ← 按需加载的详细文档
+        scripts/                         ← 自动化脚本
+      sdd-riper-one-light/               ← Light 版完整包
+        SKILL.md
+        commands/
+        references/
+```
 
-| 平台 | 安装方式 |
-|------|---------|
-| **Cursor** | 将 `SKILL.md` 复制为项目根目录的 `.cursorrules` 文件 |
-| **Claude Desktop / Claude.ai** | 复制 `SKILL.md` 内容到 Custom Instructions |
-| **其他 AI Agent** | 查看 `agents/openai.yaml` 配置 |
+**为什么需要完整包**：
+- `commands/` 提供具体的 slash command 动作
+- `references/` 提供详细的协议文档、模板、示例——SKILL.md 里的命令通过相对路径引用它们
+- `scripts/` 提供 archive 等自动化工具
+- SKILL.md 里写了 `references/spec-template.md`、`references/multi-project.md` 等路径，如果 references 没装，AI 读不到
+
+### 方式二：Cursor
+
+```bash
+# 1. 复制完整 skill 包到项目根目录
+cp -r skills/sdd-riper-one/ <目标项目>/sdd-riper-one/
+
+# 2. 将 SKILL.md 作为 .cursorrules
+cp skills/sdd-riper-one-light/SKILL.md <目标项目>/.cursorrules
+```
+
+### 方式三：Claude Desktop / Claude.ai
+
+1. 复制 `SKILL.md` 内容到 Custom Instructions
+2. 将 `references/` 和 `scripts/` 放到项目可访问的目录
+3. AI 需要时按路径读取
+
+### 方式四：其他 AI Agent
+
+参考 `agents/openai.yaml` 配置，将完整 skill 包放到 Agent 可访问的路径。
 
 ### 验证安装
 
 ```text
 输入 /sdd:ff 测试一下这个功能
-如果 AI 识别并按协议执行，说明安装成功
+如果 AI 识别并按协议执行（先复述理解、再写 spec、等批准后再改代码），说明安装成功
 ```
 
 ---
