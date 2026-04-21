@@ -25,7 +25,7 @@ skill: sdd-riper-one
    - `Done Contract`: 完成定义（如有）
    - `Last`: 上次做了什么
    - `Next`: 下一步动作
-4. 检查 §1.5 Codemap Used 的 Staleness 状态：
+4. 检查 §1.2 Codemap Used 的 Staleness 状态：
    - 如果任何 codemap 标记为 `Stale`，在恢复摘要中警告用户
    - 提示建议执行 `/sdd:codemap` 刷新过期索引后再继续
 5. 输出恢复摘要
@@ -49,5 +49,5 @@ skill: sdd-riper-one
 **Guardrails**
 
 - 如果 spec 文件没有状态块，提示用户先初始化（使用 `/sdd:bootstrap`）
-- 如果状态块 `Phase` 为 `Done`，提示已完成，建议 `/sdd:archive`
+- 如果状态块 `Phase` 为 `done`，提示已完成，建议 `/sdd:archive`
 - 通过状态块字段自动适配不同任务复杂度

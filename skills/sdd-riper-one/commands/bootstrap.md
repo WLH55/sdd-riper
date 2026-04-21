@@ -17,7 +17,7 @@ skill: sdd-riper-one
 1. 汇总用户输入 + 代码事实 + 历史资产（codemap/context/spec）
 2. 冲突处理：先落首版 spec 标记冲突，再给 `Option A/B` 和推荐决策
 3. 形成首版研究结论与下一步动作
-4. 写入 spec 文件，更新状态块 `Phase: Research`
+4. 写入 spec 文件，更新状态块 `Phase: research`
 
 **Output**
 

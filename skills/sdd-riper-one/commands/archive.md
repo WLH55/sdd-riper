@@ -18,13 +18,13 @@ skill: sdd-riper-one
 
 **Steps**
 
-1. 检查 spec 状态块，确认 `Phase` 不是 `Execute`（未完成 Review 的 spec 禁止归档）
+1. 检查 spec 状态块，确认 `Phase` 不是 `execute`（未完成 Review 的 spec 禁止归档）
 2. 读取 spec 内容，提炼关键知识
 3. 生成归档文档：
    - `human`: 汇报视角
    - `llm`: 后续开发参考视角
 4. 每个归档文档必须包含 `Trace to Sources`（结论 → 来源文件）避免失真
-5. 更新状态块 `Phase: Done`
+5. 更新状态块 `Phase: done`
 
 **Output**
 
@@ -33,5 +33,5 @@ skill: sdd-riper-one
 
 **Guardrails**
 
-- 有活跃执行中的 spec（Phase 为 Execute）时，禁止归档该 spec
+- 有活跃执行中的 spec（Phase 为 execute）时，禁止归档该 spec
 - 默认只归档不删除原文件；删除/移动需用户显式授权

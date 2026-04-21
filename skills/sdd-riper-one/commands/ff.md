@@ -39,17 +39,19 @@ skill: sdd-riper-one
 7. **回写验证**：
    - 更新 spec Change Log
    - 更新 Validation（外部证据优先）
-   - 更新状态块 `Phase: Done`
+   - 更新状态块 `Phase: done`
 8. **复杂度升级**：如果执行中发现复杂度超出预期（架构改动、跨模块、需求模糊），立即暂停，建议升级到标准版的 `/sdd:bootstrap` 流程
 
 **状态块格式**
 
 ```markdown
-> **Phase**: <implementing|done> | **Updated**: YYYY-MM-DD HH:MM
+> **Phase**: <plan|execute|review|done> | **Updated**: YYYY-MM-DD HH:MM
 > **Goal**: <核心目标>
 > **Done Contract**: <完成定义>
 > **Last**: <上次完成什么> | **Next**: <下一步>
 ```
+
+使用标准 Phase 枚举（plan → execute → review → done），与标准版保持一致。
 
 **Guardrails**
 

@@ -12,8 +12,8 @@ skill: sdd-riper-one
 
 **前置条件**
 
-- spec 状态块 `Phase` 为 `Plan`
-- spec 状态块 `Approval` 为 `Approved`（用户已说 `Plan Approved`）
+- spec 状态块 `Phase` 为 `plan`
+- spec 状态块 `Approval` 为 `Approved`（用户已表达明确肯定 + 继续意图）
 
 **Steps**
 
@@ -21,7 +21,7 @@ skill: sdd-riper-one
 2. 读取 spec `§4 Plan` 的 File Changes、Signatures、Checklist（温上下文加载）
 3. 按 checklist 逐项执行
 4. 每完成一项，更新 spec `§5 Execute Log`，勾选 checklist
-5. 更新状态块 `Phase: Execute`
+5. 更新状态块 `Phase: execute`
 
 **Output**
 
