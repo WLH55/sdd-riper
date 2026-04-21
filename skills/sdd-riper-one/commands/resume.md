@@ -1,7 +1,10 @@
 ---
 name: "SDD: Resume"
 description: "从 spec 状态块恢复执行上下文，支持跨会话恢复"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 从 spec 文件的状态块恢复执行上下文。新会话或中断后使用。
 
@@ -22,8 +25,11 @@ description: "从 spec 状态块恢复执行上下文，支持跨会话恢复"
    - `Done Contract`: 完成定义（如有）
    - `Last`: 上次做了什么
    - `Next`: 下一步动作
-4. 输出恢复摘要
-5. 用户确认后继续执行
+4. 检查 §1.5 Codemap Used 的 Staleness 状态：
+   - 如果任何 codemap 标记为 `Stale`，在恢复摘要中警告用户
+   - 提示建议执行 `/sdd:codemap` 刷新过期索引后再继续
+5. 输出恢复摘要
+6. 用户确认后继续执行
 
 **Output 示例**
 
@@ -44,4 +50,4 @@ description: "从 spec 状态块恢复执行上下文，支持跨会话恢复"
 
 - 如果 spec 文件没有状态块，提示用户先初始化（使用 `/sdd:bootstrap`）
 - 如果状态块 `Phase` 为 `Done`，提示已完成，建议 `/sdd:archive`
-- 标准版和 Light 版共用此命令，通过状态块字段自动适配
+- 通过状态块字段自动适配不同任务复杂度

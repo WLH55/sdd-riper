@@ -1,7 +1,10 @@
 ---
 name: "SDD: Execute"
 description: "进入 Execute 阶段，按 Plan 无脑执行"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 进入 Execute 阶段。按 Plan 逐项实施。
 

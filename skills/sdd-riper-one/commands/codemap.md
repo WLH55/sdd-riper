@@ -1,7 +1,10 @@
 ---
 name: "SDD: Codemap"
 description: "生成代码索引地图，支持 feature 和 project 两种模式"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 生成代码索引地图。CodeMap 是代码上下文索引，用于后续按需加载，而不是每轮全仓扫描。
 

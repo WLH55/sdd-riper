@@ -59,6 +59,20 @@
 - REVIEW 门禁：必须输出 `Review Matrix + Overall Verdict + Plan-Execution Diff`；任一高风险阻塞项未解决不得收口。
 - ARCHIVE 门禁：默认只归档不删源文件；活跃 spec 归档需显式确认。
 
+## Codemap 过期检测（Staleness Detection）
+
+Codemap 是一次性索引，不会自动随代码变更更新。协议在以下节点强制检测过期：
+
+| 节点 | 动作 |
+|---|---|
+| **Execute 每步完成后** | 比对改动文件 vs §1.5 Key Index，命中则标记 `Stale` |
+| **Review 开始前** | 审计 §1.5 过期状态，WARN 用户，记录到 Review Verdict |
+| **Resume 恢复时** | 发现 `Stale` codemap 警告用户，建议先刷新 |
+| **Archive 归档时** | 附注哪些 codemap 已过期 |
+
+- Spec `§1.5` 新增字段：`Staleness: Fresh/Stale/Refreshed` + `Stale Reason`
+- Review 完成后自动建议：`建议执行 /sdd:codemap 刷新过期索引`
+
 ## 关键约束
 
 - No Spec, No Code

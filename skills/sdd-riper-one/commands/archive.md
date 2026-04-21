@@ -1,7 +1,10 @@
 ---
 name: "SDD: Archive"
 description: "归档完成的 spec/codemap，沉淀为可复用知识"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 对完成的 spec/codemap 做归档沉淀，将"中间产物"提炼为可复用知识。
 

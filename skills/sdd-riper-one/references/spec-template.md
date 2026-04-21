@@ -52,6 +52,8 @@
 ## 1.5 Codemap Used (Feature/Project Index)
 - Codemap Mode: `feature` / `project`
 - Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_<name>.md`
+- Staleness: `Fresh` / `Stale` / `Refreshed`
+- Stale Reason: `<files changed that affect this codemap, or empty if Fresh>`
 - Key Index:
   - Entry Points / Architecture Layers: ...
   - Core Logic / Cross-Module Flows: ...
@@ -183,10 +185,14 @@
 ## 1.5 Codemap Used (Per-Project Index)
 ### web-console
 - Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_web-console项目总图.md`
+- Staleness: `Fresh` / `Stale` / `Refreshed`
+- Stale Reason: `<files changed, or empty if Fresh>`
 - Key Index: ...
 
 ### api-service
 - Codemap File: `docs/codemap/YYYY-MM-DD_HH-MM_api-service项目总图.md`
+- Staleness: `Fresh` / `Stale` / `Refreshed`
+- Stale Reason: `<files changed, or empty if Fresh>`
 - Key Index: ...
 
 ## 1.6 Context Bundle Snapshot (Lite/Standard)

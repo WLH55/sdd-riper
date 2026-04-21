@@ -1,7 +1,10 @@
 ---
 name: "SDD: Plan"
 description: "进入 Plan 阶段，输出详细的实施计划（含可选 Innovate 方案设计）"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 进入 Plan 阶段。输出详细实施计划，人类批准后才准动手。
 

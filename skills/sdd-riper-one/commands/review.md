@@ -1,7 +1,10 @@
 ---
 name: "SDD: Review"
 description: "执行后三轴审查，输出 Review Verdict"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 Execute 完成后执行结构化三轴审查。
 

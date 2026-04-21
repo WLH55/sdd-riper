@@ -1,7 +1,10 @@
 ---
 name: "SDD: Bootstrap"
 description: "启动 SDD 任务，进入 Research 阶段，产出第一版 spec"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 启动 SDD 任务（RIPER 的 Research 第一步，同时完成 Pre-Research 收口）。
 
