@@ -1,7 +1,10 @@
 ---
 name: "SDD: Resume"
 description: "从 spec 状态块恢复执行上下文，支持跨会话恢复"
+skill: sdd-riper-one
 ---
+
+本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 从 spec 文件的状态块恢复执行上下文。新会话或中断后使用。
 
@@ -22,26 +25,29 @@ description: "从 spec 状态块恢复执行上下文，支持跨会话恢复"
    - `Done Contract`: 完成定义（如有）
    - `Last`: 上次做了什么
    - `Next`: 下一步动作
-4. 输出恢复摘要
-5. 用户确认后继续执行
+4. 检查 §1.2 Codemap Used 的 Staleness 状态：
+   - 如果任何 codemap 标记为 `Stale`，在恢复摘要中警告用户
+   - 提示建议执行 `/sdd:codemap` 刷新过期索引后再继续
+5. 输出恢复摘要
+6. 用户确认后继续执行
 
 **Output 示例**
 
 ```
 ## 恢复上下文
 
-**Spec**: docs/specs/2026-04-19_14-30_修改按钮颜色.md
-**Phase**: implementing
-**Goal**: 登录按钮颜色改为蓝色
-**Done Contract**: 按钮主色变蓝，视觉确认
-**Last**: 确认了组件位置
-**Next**: 修改 Button 的 color prop
+**Spec**: docs/specs/2026-04-19_14-30_用户登录.md
+**Phase**: Plan
+**Goal**: 实现完整登录流程
+**Last**: 完成 Research，调研了 3 个方案
+**Next**: 完成 Plan §4 的 File Changes 和 Checklist
+**Approval**: Pending
 
 继续吗？
 ```
 
 **Guardrails**
 
-- 如果 spec 文件没有状态块，提示用户先初始化（使用 `/sdd:ff` 或 `/sdd:bootstrap`）
-- 如果状态块 `Phase` 为 `Done`，提示已完成，建议 `/sdd:archive`
-- 标准版和 Light 版共用此命令，通过状态块字段自动适配
+- 如果 spec 文件没有状态块，提示用户先初始化（使用 `/sdd:bootstrap`）
+- 如果状态块 `Phase` 为 `done`，提示已完成，建议 `/sdd:archive`
+- 通过状态块字段自动适配不同任务复杂度
